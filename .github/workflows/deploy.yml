@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Log environment variables
-      run: echo Name ${{ vars.GIT_COMMITTER_NAME}}, Email ${{ vars.GIT_COMMITTER_EMAIL }}, Username ${{ vars.USERNAME }}
+      run: echo Name $GIT_COMMITTER_NAME, Email $GIT_COMMITTER_EMAIL, Username ${{ vars.USERNAME }}
     - name: Replace Username
       run: sed -i 's/{USERNAME}/${{ vars.USERNAME }}/g' "${{ github.workspace }}/test.txt"
     - name: Create deployment branch
