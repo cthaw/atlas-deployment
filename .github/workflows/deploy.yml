@@ -19,3 +19,6 @@ jobs:
       run: git add . && git commit -m "Staging deployment files"
     - name: Push changes to deployment branch
       run: git push origin -u -f HEAD
+    env:
+      GIT_COMMITTER_NAME: ${{ vars.GIT_COMMITTER_NAME }}
+      GIT_COMMITTER_EMAIL: ${{ vars.GIT_COMMITTER_EMAIL }}
