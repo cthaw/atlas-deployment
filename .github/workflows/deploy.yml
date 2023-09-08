@@ -1,0 +1,22 @@
+name: Atlas Deployment CI
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: "${{ github.ref_name }}"
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Replace Username
+      run: sed -i 's/{USERNAME}/${{ vars.USERNAME }}' "${{ github.workspace }}/test.txt"
+    - name: Create deployment branch
+      run: git checkout -b "${{ github.ref_name }}"-deployed
+    - name: Stage changes
+      run: git add . && git commit -m "Staging deployment files"
+    - name: Push changes to deployment branch
+      run: git push origin -u -f HEAD
+    env:
+      GIT_COMMITTER_EMAIL: ${{ vars.GIT_COMMITTER_EMAIL }}
+      GIT_COMMITTER_NAME: ${{ vars.GIT_COMMITTER_NAME }}
